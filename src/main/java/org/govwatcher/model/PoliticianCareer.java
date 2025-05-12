@@ -1,11 +1,12 @@
 package org.govwatcher.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-
+@Getter
 @Entity
 @Table(name = "politician_careers")
 public class PoliticianCareer {
@@ -18,6 +19,7 @@ public class PoliticianCareer {
     @JoinColumn(name = "politician_id")
     private Politician politician;
 
+    @Column(name = "career", columnDefinition = "LONGTEXT")
     @Lob
     private String career;
 

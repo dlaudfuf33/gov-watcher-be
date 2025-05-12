@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
 
     // 400
+    ENTITY_NOT_FOUND("N001", "Entity not found", HttpStatus.NOT_FOUND),
     INVALID_INPUT_VALUE("C001", "Invalid input value", HttpStatus.BAD_REQUEST),
-    ENTITY_NOT_FOUND("C002", "Entity not found", HttpStatus.NOT_FOUND),
     DUPLICATE_ENTITY("C003", "Entity already exists", HttpStatus.CONFLICT),
 
     // 403

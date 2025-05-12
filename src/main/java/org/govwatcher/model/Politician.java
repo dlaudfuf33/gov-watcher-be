@@ -1,6 +1,7 @@
 package org.govwatcher.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "politicians", indexes = {
         @Index(name = "idx_politician_lookup", columnList = "name, hanja_name")
@@ -24,6 +26,8 @@ public class Politician {
     private String name;
     private String hanjaName;
     private String engName;
+
+    private String profileImage;
 
     private LocalDate birthDate;
 
@@ -49,6 +53,6 @@ public class Politician {
     private PoliticianCareer career;
 
     public enum Gender {
-        male, female
+        MALE, FEMALE
     }
 }

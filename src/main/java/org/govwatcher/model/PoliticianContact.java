@@ -1,11 +1,12 @@
 package org.govwatcher.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-
+@Getter
 @Entity
 @Table(name = "politician_contacts")
 public class PoliticianContact {

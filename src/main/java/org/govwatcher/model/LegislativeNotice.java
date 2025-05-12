@@ -1,6 +1,7 @@
 package org.govwatcher.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "legislative_notices")
 public class LegislativeNotice {
@@ -18,7 +20,7 @@ public class LegislativeNotice {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bill_id", referencedColumnName = "billId", nullable = false)
+    @JoinColumn(name = "bill_id", nullable = false)
     private Bill bill;
 
     @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -28,14 +30,14 @@ public class LegislativeNotice {
     private LocalDate endDate;
 
     @Lob
-    private String commentsUrl;
+    private String opinionUrl;
 
-    private Integer commentsCount;
-    private Integer viewCount;
+    private Integer opinionCount;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
 }

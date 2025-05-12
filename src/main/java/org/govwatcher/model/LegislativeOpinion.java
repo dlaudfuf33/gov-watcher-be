@@ -1,10 +1,12 @@
 package org.govwatcher.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @Table(name = "legislative_opinions", uniqueConstraints = {
         @UniqueConstraint(name = "uniq_bill_opn", columnNames = {"bill_id", "opn_no"})
@@ -16,7 +18,7 @@ public class LegislativeOpinion {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bill_id", referencedColumnName = "billId", nullable = false)
+    @JoinColumn(name = "notice_id", nullable = false)
     private LegislativeNotice notice;
 
     private Long opnNo;
@@ -29,10 +31,13 @@ public class LegislativeOpinion {
 
     private String author;
 
-    private Boolean isAnonymous;
-
-    private Boolean agreement; // true: 찬성, false: 반대, null: 무응답
+    @Enumerated(EnumType.STRING)
+    private Agreement agreement;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public enum Agreement {
+        AGREE, DISAGREE, PRIVATE
+    }
 }

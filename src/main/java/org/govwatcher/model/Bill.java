@@ -1,6 +1,9 @@
 package org.govwatcher.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,10 +12,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "bills", indexes = {
         @Index(name = "idx_bill_no", columnList = "bill_no")
 })
+@Access(AccessType.FIELD)
 public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +28,18 @@ public class Bill {
     @Column(name = "bill_id", nullable = false, unique = true)
     private String billId;
 
+    @Column
     private String billNo;
-    private String name;
-    private String committee;
-    private String committeeId;
-    private String age;
+
+    @Column
+    private String title;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "committee_id")
+    private Committee committee;
+
+    @Column
+    private int age;
 
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BillStatusFlow> statusFlows = new ArrayList<>();
@@ -39,13 +53,7 @@ public class Bill {
     @Lob
     private String proposer;
 
-    private String mainProposer;
-
-    @Lob
-    private String subProposers;
-
     private LocalDate proposeDate;
-
     private LocalDate lawProcDate;
     private LocalDate lawPresentDate;
     private LocalDate lawSubmitDate;
