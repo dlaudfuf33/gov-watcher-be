@@ -2,7 +2,8 @@
 FROM gradle:8.5-jdk17 AS builder
 WORKDIR /app
 COPY . .
-RUN gradle build --no-daemon
+RUN chmod +x ./gradlew
+RUN ./gradlew build --no-daemon
 
 # 2단계: 런타임
 FROM eclipse-temurin:17-jdk
