@@ -5,8 +5,16 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-init.sql
-application.yml
+/src/main/generated/
+/src/main/resources/DDL_Mysql.sql
+/src/main/resources/application.yml
+/src/main/resources/DDL_Postgre.sql
+/src/main/resources/Materized.sql
+/src/main/resources/init.sql
+
+
+
+
 
 ### STS ###
 .apt_generated
