@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/legislations")
+@RequestMapping("/api")
 public class LegislativeNoticeController {
 
     private final LegislativeNoticeService legislativeNoticeService;
 
-    @GetMapping("/notices")
+    @GetMapping("/v1/legislations/notices")
     public ResponseEntity<Page<LegislativeNoticeResponse>> getNotices(
             @RequestParam("page") int page, @RequestParam("size") int size,
             @RequestParam("primarySort") PrimarySortType primarySort,
@@ -28,7 +28,7 @@ public class LegislativeNoticeController {
         return ResponseEntity.ok(responsePage);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/v1/legislations/{id}")
     public ResponseEntity<LegislativeNoticeDetailResponse> getLegislationDetail(@PathVariable("id") Long id) {
         LegislativeNoticeDetailResponse response = legislativeNoticeService.getLegislationDetail(id);
         return ResponseEntity.ok(response);

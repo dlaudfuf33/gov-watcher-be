@@ -14,6 +14,28 @@ services:
     networks:
       - proxy-tier
 
+  gov-watcher-fe:
+    image: dlaudfuf33/gov-watcher-fe:latest
+    container_name: gov-watcher-fe
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=3000
+      - VIRTUAL_HOST=govwhatsup.com
+      - LETSENCRYPT_HOST=govwhatsup.com
+      - LETSENCRYPT_EMAIL=dlaudfuf33@gmail.com
+    expose:
+      - "3000"
+    networks:
+      - proxy-tier
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:3000 || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+
 networks:
   proxy-tier:
     external: true

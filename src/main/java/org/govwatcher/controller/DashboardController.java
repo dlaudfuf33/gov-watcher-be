@@ -15,32 +15,32 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/dashboard")
+@RequestMapping("/api")
 public class DashboardController {
 
     private final DashboardService dashboardService;
 
-    @GetMapping("/parliament-stats")
+    @GetMapping("/v1/dashboard/parliament-stats")
     public ResponseEntity<ParliamentStatResponse> getParliamentStats() {
         return ResponseEntity.ok(dashboardService.getParliamentStats());
     }
 
-    @GetMapping("/party-distribution")
+    @GetMapping("/v1/dashboard/party-distribution")
     public ResponseEntity<PartyDistributionResponse> getPartyDistribution() {
         return ResponseEntity.ok(dashboardService.getPartyDistribution());
     }
 
-    @GetMapping("/demographic-stats")
+    @GetMapping("/v1/dashboard/demographic-stats")
     public ResponseEntity<DemographicStatsResponse> getDemographicStats() {
         return ResponseEntity.ok(dashboardService.getDemographicStats());
     }
 
-    @GetMapping("/committee-stats")
+    @GetMapping("/v1/dashboard/committee-stats")
     public ResponseEntity<BillComiitteeStatsResponse> getCommitteeStats() {
         return ResponseEntity.ok(dashboardService.getCommitteeStats());
     }
 
-    @GetMapping("/partybill-stats")
+    @GetMapping("/v1/dashboard/partybill-stats")
     public ResponseEntity<BillComiitteeStatsResponse> getCategoryStats() {
         return ResponseEntity.ok(dashboardService.gePartyBillStats());
     }

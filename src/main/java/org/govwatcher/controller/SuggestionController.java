@@ -13,18 +13,18 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/suggestions")
+@RequestMapping("/api")
 public class SuggestionController {
     private final SuggestionService suggestionService;
 
 
-    @PostMapping
+    @PostMapping("/v1/suggestions")
     public ResponseEntity<Void> submit(@RequestBody SuggestionRequest request) {
         suggestionService.submit(request);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
+    @GetMapping("/v1/suggestions")
     public List<SuggestionResponse> getSuggestions(
             @RequestParam(name = "status", required = false) String status) {
         SuggestionStatus enumStatus = null;
@@ -34,7 +34,7 @@ public class SuggestionController {
         return suggestionService.findByStatus(enumStatus);
     }
 
-    @PatchMapping("/{id}/vote")
+    @PatchMapping("/v1/suggestions/{id}/vote")
     public ResponseEntity<Void> voteSuggestion(
             @PathVariable("id") Long id,
             @RequestBody SuggestionVoteRequest request) {

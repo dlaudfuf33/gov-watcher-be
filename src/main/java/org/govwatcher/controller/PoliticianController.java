@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/politicians")
+@RequestMapping("/api")
 public class PoliticianController {
 
     private final PoliticianService politicianService;
 
-    @GetMapping("")
+    @GetMapping("/v1/politicians")
     public ResponseEntity<PoliticianListResponse> getPoliticians(
             @RequestParam(name = "page", defaultValue = "1") int page,
             @RequestParam(name = "size", defaultValue = "20") int size,
@@ -29,13 +29,13 @@ public class PoliticianController {
         return ResponseEntity.ok(politicianService.getPoliticians(page, size, name, party, district, sort));
     }
 
-    @GetMapping("/detail/{id}")
+    @GetMapping("/v1/politicians/detail/{id}")
     public ResponseEntity<PoliticianDetailResponse> getPoliticiansDetail(@PathVariable("id") Long id) {
         return ResponseEntity.ok(politicianService.getPoliticiansDetail(id));
     }
 
 
-    @GetMapping("/network/{id}")
+    @GetMapping("/v1/politicians/network/{id}")
     public ResponseEntity<PoliticianNetworkDto> getPoliticianNetwork(@PathVariable("id") Long id) {
         return ResponseEntity.ok(politicianService.getPoliticianNetwork(id));
     }
