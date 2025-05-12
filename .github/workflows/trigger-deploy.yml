@@ -2,7 +2,7 @@ name: Deploy Backend via SSH to Raspi
 
 on:
   workflow_run:
-    workflows: ["Deploy Backend to Raspberry Pi"]
+    workflows: [ "Deploy Backend to Raspberry Pi" ]
     types:
       - completed
 
@@ -17,9 +17,18 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.RASPI_SSH_KEY }}
 
-      - name: SSH Deploy
+      - name: Create .env locally
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.RASPI_USER }}@${{ secrets.RASPI_HOST }} << 'EOF'
+          echo "SPRING_PROFILES_ACTIVE=prod" > .env
+          echo "DB_URL=${{ secrets.DB_URL }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+
+      - name: Transfer and Deploy via SSH
+        run: |
+          scp -o StrictHostKeyChecking=no .env ${{ secrets.RASPI_USER }}@${{ secrets.RASPI_HOST }}:~/gov-watcher-be/.env
+
+          ssh -o StrictHostKeyChecking=no ${{ secrets.RASPI_USER }}@${{ secrets.RASPI_HOST }} <<EOF
             echo "✅ Raspi 접속 완료"
             cd ~/gov-watcher-be
             git pull origin main

@@ -5,7 +5,10 @@ services:
     container_name: gov-watcher-be
     restart: always
     environment:
-      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: "${DB_URL}"
+      DB_USERNAME: "${DB_USERNAME}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      SPRING_PROFILES_ACTIVE: "${SPRING_PROFILES_ACTIVE}"
     ports:
       - "8080:8080"
     networks:

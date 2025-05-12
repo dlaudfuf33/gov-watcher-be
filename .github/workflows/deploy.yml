@@ -2,7 +2,7 @@ name: Deploy Backend to Raspberry Pi
 
 on:
   release:
-    types: [published]
+    types: [ published ]
 
 jobs:
   build-and-push:
