@@ -30,8 +30,15 @@ jobs:
 
           ssh -o StrictHostKeyChecking=no ${{ secrets.RASPI_USER }}@${{ secrets.RASPI_HOST }} <<EOF
             echo "✅ Raspi 접속 완료"
+          
+            cd ~/gov-watcher-fe
+            git pull origin main
+            echo "⤵️ FE pull"
+            
             cd ~/gov-watcher-be
             git pull origin main
+            echo "⤵️ BE pull"
+          
             docker compose pull
             docker compose up -d
             echo "🚀 BE 최신화 완료"
