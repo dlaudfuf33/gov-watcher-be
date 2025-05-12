@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  gov-watcher-be:
+    image: dlaudfuf33/gov-watcher-be:latest
+    container_name: gov-watcher-be
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    ports:
+      - "8080:8080"
+    networks:
+      - proxy-tier
+
+networks:
+  proxy-tier:
+    external: true

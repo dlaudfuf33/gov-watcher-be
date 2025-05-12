@@ -1,0 +1,30 @@
+name: Deploy Backend to Raspberry Pi
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Docker image
+        run: |
+          docker buildx build --push \
+            --platform linux/amd64,linux/arm64 \
+            --tag dlaudfuf33/gov-watcher-be:${{ github.event.release.tag_name }} \
+            --tag dlaudfuf33/gov-watcher-be:latest \
+            .
